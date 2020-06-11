@@ -8,14 +8,13 @@ public class EmpWage {
 	Random rand=new Random();
 	int empHr=0;
 	int empCheck=rand.nextInt(3);
-	if(empCheck==fullTime) {
-		empHr=8;
-		}
-	else if(empCheck==partTime) {
-		empHr=4;
+	switch(empCheck) {
+	case 1: empHr=8;
+			break;
+	case 2: empHr=4;
+			break;
+	default: empHr=0;
 	}
-	else
-		empHr=0;
 	System.out.println("Daily Wage= "+(empHr*ratePerHour));
 	}
 }
