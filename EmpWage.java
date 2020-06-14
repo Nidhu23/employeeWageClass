@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+interface Computewage{
+	public Company salary(Company C) ;
+	public void disp(Company C);
+}
 class Company{
 	private String compName;
 	private int ratePerHr;
@@ -44,7 +49,7 @@ class Company{
 	}
 	
 }
-class Employeesalary{
+class Employeesalary implements Computewage{
 	public Company salary(Company C) {
 		int empHr=0,totalHrs=0,dailyWage=0,diff=0,sum=0,totalDays=0;
 		ArrayList<Integer> salary=new ArrayList<>();
