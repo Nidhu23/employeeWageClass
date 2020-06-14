@@ -82,6 +82,8 @@ class Employeesalary{
 }
 public class EmpWage {
 	public static void main(String[] args) {
+	int n=0;
+	do{
 	System.out.println("Welcome to Employee Wage Computation");
 	Scanner sc=new Scanner(System.in);
 	System.out.println("Enter Company name");
@@ -96,5 +98,8 @@ public class EmpWage {
 	Employeesalary empsal=new Employeesalary();
 	company=empsal.salary(company);
 	empsal.disp(company);
+	System.out.println("Enter 1 to enter new company, 0 to stop");
+	n=sc.nextInt();
+		}while(n!=0);
 	}
 }
