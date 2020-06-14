@@ -98,30 +98,33 @@ class Employeesalary implements Computewage{
 	public int getTotalWage(String name) {
 		return empWageMap.get(name);
 	}
-	
+	public void input() {
+		int n=0;
+		Employeesalary empsal=new Employeesalary();
+		Scanner sc=new Scanner(System.in);
+		do{
+		System.out.println("Welcome to Employee Wage Computation");
+		System.out.println("Enter Company name");
+		String name=sc.next();
+		System.out.println("Enter wage per hour");
+		int ratePerHr=sc.nextInt();
+		System.out.println("Enter maximum working days of a month");
+		int workingDays=sc.nextInt();
+		System.out.println("Enter maximum working hours of a month");
+		int workingHrs=sc.nextInt();
+		Company company=new Company(name,ratePerHr,workingDays,workingHrs);
+		empsal.salary(company);
+		System.out.println("Enter 1 to enter new company, 0 to stop");
+		n=sc.nextInt();
+			}while(n!=0);
+		System.out.println("Enter the name of company you want total wage for");
+		String name=sc.next();
+		System.out.println("Total Wage for "+name+" is:"+empsal.getTotalWage(name));
+		}	
 }
 public class EmpWage {
 	public static void main(String[] args) {
-	int n=0;
-	Employeesalary empsal=new Employeesalary();
-	Scanner sc=new Scanner(System.in);
-	do{
-	System.out.println("Welcome to Employee Wage Computation");
-	System.out.println("Enter Company name");
-	String name=sc.next();
-	System.out.println("Enter wage per hour");
-	int ratePerHr=sc.nextInt();
-	System.out.println("Enter maximum working days of a month");
-	int workingDays=sc.nextInt();
-	System.out.println("Enter maximum working hours of a month");
-	int workingHrs=sc.nextInt();
-	Company company=new Company(name,ratePerHr,workingDays,workingHrs);
-	empsal.salary(company);
-	System.out.println("Enter 1 to enter new company, 0 to stop");
-	n=sc.nextInt();
-		}while(n!=0);
-	System.out.println("Enter the name of company you want total wage for");
-	String name=sc.next();
-	System.out.println("Total Wage for "+name+" is:"+empsal.getTotalWage(name));
+	Employeesalary emp=new Employeesalary();
+	emp.input();
 	}
 }
