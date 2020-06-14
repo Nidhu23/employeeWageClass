@@ -1,10 +1,14 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
 interface Computewage{
-	public Company salary(Company C) ;
+	public void salary(Company C) ;
 	public void disp(Company C);
+	public void add(String name,int totalWage);
+	public int getTotalWage(String name);
+	
 }
 class Company{
 	private String compName;
@@ -50,7 +54,8 @@ class Company{
 	
 }
 class Employeesalary implements Computewage{
-	public Company salary(Company C) {
+	private static HashMap<String,Integer> empWageMap=new HashMap<String,Integer>();
+	public void salary(Company C) {
 		int empHr=0,totalHrs=0,dailyWage=0,diff=0,sum=0,totalDays=0;
 		ArrayList<Integer> salary=new ArrayList<>();
 		ArrayList<Integer> totalSalary=new ArrayList<>();
@@ -75,7 +80,10 @@ class Employeesalary implements Computewage{
 		sum+=dailyWage;
 		totalSalary.add(sum);
 		}
-		return new Company(C.getCompName(),salary,totalSalary,totalDays);
+		Company comp=new Company(C.getCompName(),salary,totalSalary,totalDays);
+		Employeesalary emp=new Employeesalary();
+		emp.disp(comp);
+		emp.add(C.getCompName(),sum);
 	}
 	public void disp(Company C) {
 		System.out.println(C.getCompName()+"'s salary details for the month are as below:");
@@ -84,13 +92,21 @@ class Employeesalary implements Computewage{
 			System.out.println(i+"\t"+C.getSalary().get(i)+"\t\t"+C.getTotalSalary().get(i));
 			}
 	}
+	public void add(String name,int totalWage) {
+		empWageMap.put(name, totalWage);
+	}
+	public int getTotalWage(String name) {
+		return empWageMap.get(name);
+	}
+	
 }
 public class EmpWage {
 	public static void main(String[] args) {
 	int n=0;
+	Employeesalary empsal=new Employeesalary();
+	Scanner sc=new Scanner(System.in);
 	do{
 	System.out.println("Welcome to Employee Wage Computation");
-	Scanner sc=new Scanner(System.in);
 	System.out.println("Enter Company name");
 	String name=sc.next();
 	System.out.println("Enter wage per hour");
@@ -100,11 +116,12 @@ public class EmpWage {
 	System.out.println("Enter maximum working hours of a month");
 	int workingHrs=sc.nextInt();
 	Company company=new Company(name,ratePerHr,workingDays,workingHrs);
-	Employeesalary empsal=new Employeesalary();
-	company=empsal.salary(company);
-	empsal.disp(company);
+	empsal.salary(company);
 	System.out.println("Enter 1 to enter new company, 0 to stop");
 	n=sc.nextInt();
 		}while(n!=0);
+	System.out.println("Enter the name of company you want total wage for");
+	String name=sc.next();
+	System.out.println("Total Wage for "+name+" is:"+empsal.getTotalWage(name));
 	}
 }
